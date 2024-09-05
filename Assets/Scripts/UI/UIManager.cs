@@ -55,7 +55,7 @@ namespace UI
         /// </summary>
         /// <param name="basePanel">要存入栈的面板</param>
         /// <param name="callback">是否先执行栈顶的渐渐隐藏</param>
-        /// /// <example>例如[1]当2被存入后,变成了[1,2],此时callback参数决定2会不会调用CallBack(true)</example>
+        /// /// <example>例如[1]当2被存入后,变成了[1,2],此时callback参数决定1会不会调用CallBack(false)</example>
         public void PushPanel(IBasePanel basePanel, bool callback = true)
         {
             if (basePanel.IsInStack)
