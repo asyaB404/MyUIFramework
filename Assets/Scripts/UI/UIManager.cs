@@ -99,5 +99,20 @@ namespace UI
         {
             return _panelStack.Count <= 0 ? null : _panelStack.Peek();
         }
+
+        #region Debug
+
+        [ContextMenu("PrintStack")]
+        private void PrintStack()
+        {
+            Debug.Log("_panelStack还剩: "+_panelStack.Count+"个,分别是");
+            foreach (var item in _panelStack)
+            {
+                Debug.Log(item);
+            }
+        }
+
+
+        #endregion
     }
 }

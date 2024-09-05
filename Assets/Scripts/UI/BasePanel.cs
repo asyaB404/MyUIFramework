@@ -69,7 +69,9 @@ namespace UI
 
         public virtual void Init()
         {
+            //单例模式
             Instance = this as T1;
+            //添加控件
             FindChildrenControl<Button>();
             FindChildrenControl<Image>();
             FindChildrenControl<Text>();
@@ -83,17 +85,21 @@ namespace UI
         }
 
 
+        /// <summary>
+        ///     打开当前面板，该面板进入栈内，同时标记为IsInStack = true
+        /// </summary>
         public void ShowMe()
         {
             if (IsInStack) return;
             UIManager.Instance.PushPanel(this);
             gameObject.SetActive(true);
+            //设置为最后一个子物体，防止被其他已经打开的面板遮挡
             gameObject.transform.SetAsLastSibling();
             IsInStack = true;
         }
 
         /// <summary>
-        ///     一般只对栈顶的元素执行,若不是栈顶元素执行,将会弹出该元素之上的所有元素
+        ///     关闭当前面板，IsInStack = false,一般只对栈顶的元素执行,若不是栈顶元素执行,将会弹出该元素之上的所有元素和他自己
         /// </summary>
         public void HideMe()
         {
@@ -107,7 +113,7 @@ namespace UI
             }
             else
             {
-                // Debug.LogWarning("你不能关闭栈顶以为的面板");
+                Debug.LogWarning("注意，你关闭了栈顶以外的面板");
                 while (!ReferenceEquals(UIManager.Instance.Peek(), this)) UIManager.Instance.Peek().HideMe();
                 UIManager.Instance.PopPanel();
                 IsInStack = false;
