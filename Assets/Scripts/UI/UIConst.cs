@@ -1,5 +1,8 @@
 namespace UI
 {
+    /// <summary>
+    /// UI常量
+    /// </summary>
     public static class UIConst
     {
         /// <summary>

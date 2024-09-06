@@ -7,6 +7,9 @@ using UnityEngine.UI;
 
 namespace UI
 {
+    /// <summary>
+    /// 面板接口
+    /// </summary>
     public interface IBasePanel
     {
         /// <summary>
@@ -47,6 +50,10 @@ namespace UI
         void CallBack(bool flag);
     }
 
+    /// <summary>
+    /// 面板基类
+    /// </summary>
+    /// <typeparam name="T1">决定单例模式Instance的类型</typeparam>
     public class BasePanel<T1> : MonoBehaviour, IBasePanel where T1 : class
     {
         private readonly Dictionary<string, List<UIBehaviour>> _controlDic = new();
@@ -65,8 +72,14 @@ namespace UI
             }
         }
 
+        /// <summary>
+        /// 是否在栈中
+        /// </summary>
         public bool IsInStack { get; private set; }
 
+        /// <summary>
+        /// 初始化，搜寻控件
+        /// </summary>
         public virtual void Init()
         {
             //单例模式
