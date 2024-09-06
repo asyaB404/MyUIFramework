@@ -6,7 +6,13 @@ namespace UI
     public class UIManager : MonoBehaviour
     {
         private readonly Stack<IBasePanel> _panelStack = new();
+        public IReadOnlyCollection<IBasePanel> Panels => _panelStack;
         public static UIManager Instance { get; private set; }
+        
+        private void Start()
+        {
+            //GameStartPanel.Instance.ShowMe();
+        }
 
         /// <summary>
         /// 为所有的面板统一执行Init初始化方法
@@ -37,11 +43,10 @@ namespace UI
                 (panel as MonoBehaviour)?.gameObject.SetActive(false);
             }
 
-            IBasePanel curPanel;
             int count = _panelStack.Count;
             for (int i = 0; i < count; i++)
             {
-                curPanel = Peek();
+                var curPanel = Peek();
                 curPanel.HideMe();
                 (curPanel as MonoBehaviour)?.gameObject.SetActive(false);
             }
@@ -105,13 +110,12 @@ namespace UI
         [ContextMenu("PrintStack")]
         private void PrintStack()
         {
-            Debug.Log("_panelStack还剩: "+_panelStack.Count+"个,分别是");
+            Debug.Log("_panelStack还剩: " + _panelStack.Count + "个,分别是");
             foreach (var item in _panelStack)
             {
                 Debug.Log(item);
             }
         }
-
 
         #endregion
     }
