@@ -8,7 +8,7 @@ namespace UI
         private readonly Stack<IBasePanel> _panelStack = new();
         public IReadOnlyCollection<IBasePanel> Panels => _panelStack;
         public static UIManager Instance { get; private set; }
-        
+
         private void Start()
         {
             //GameStartPanel.Instance.ShowMe();
@@ -44,7 +44,7 @@ namespace UI
                 (curPanel as MonoBehaviour)?.gameObject.SetActive(false);
             }
 
-            // _panelStack.Clear();
+            _panelStack.Clear();
         }
 
 
