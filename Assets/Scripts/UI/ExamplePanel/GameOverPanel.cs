@@ -3,6 +3,9 @@ using UnityEngine.UI;
 
 namespace UI.ExamplePanel
 {
+    /// <summary>
+    /// 示例面板，游戏结束面板
+    /// </summary>
     public class GameOverPanel : BasePanel<GameOverPanel>
     {
         public override void Init()

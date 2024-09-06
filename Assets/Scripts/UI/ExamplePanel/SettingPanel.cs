@@ -2,6 +2,9 @@ using UnityEngine.UI;
 
 namespace UI.ExamplePanel
 {
+    /// <summary>
+    /// 示例面板设置
+    /// </summary>
     public class SettingPanel : BasePanel<SettingPanel>
     {
         public override void Init()

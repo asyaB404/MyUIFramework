@@ -5,6 +5,9 @@ using UnityEngine;
 
 namespace Test
 {
+    /// <summary>
+    /// 测试用，能够更清楚看到面板栈内的元素
+    /// </summary>
     public class DebugStackView : MonoBehaviour
     {
         [SerializeField] private Transform content;
