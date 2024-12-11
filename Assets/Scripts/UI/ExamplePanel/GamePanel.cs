@@ -18,5 +18,10 @@ namespace UI.ExamplePanel
         {
             GamePausePanel.Instance.ShowMe();
         }
+
+        public override void CallBackWhenHeadPop(IBasePanel popPanel)
+        {
+            popPanel?.HideAnim();
+        }
     }
 }

@@ -16,5 +16,15 @@ namespace UI.ExamplePanel
                 GamePanel.Instance.HideMe();
             });
         }
+        
+        public override void CallBackWhenHeadPush(IBasePanel oldPanel)
+        {
+            ShowAnim();
+        }
+
+        public override void CallBackWhenHeadPop(IBasePanel popPanel)
+        {
+            base.CallBackWhenHeadPop(popPanel);
+        }
     }
 }

@@ -25,6 +25,11 @@ namespace UI.ExamplePanel
             GameStartPanel.Instance.ShowMe();
         }
 
+        public override void CallBackWhenHeadPush(IBasePanel oldPanel)
+        {
+            ShowAnim();
+        }
+
         public override void OnPressedEsc()
         {
             Exit();
