@@ -53,9 +53,8 @@ namespace UI
         ///     因为面板基类的ShowMe和HideMe的默认实现已经对栈元素的进出进行了管理，一般直接调用ShowMe和HideMe即可。
         /// </summary>
         /// <param name="basePanel">要存入栈的面板</param>
-        /// <param name="callback">是否先执行栈顶的渐渐隐藏</param>
         /// /// <example>例如[1]当2被存入后,变成了[1,2],此时callback参数决定1会不会调用CallBack(false)</example>
-        public void PushPanel(IBasePanel basePanel, bool callback = true)
+        public void PushPanel(IBasePanel basePanel)
         {
             if (basePanel.IsInStack)
             {
@@ -63,32 +62,23 @@ namespace UI
                 return;
             }
 
-            if (callback && Peek() != null) Peek().CallBack(false);
-
+            var oldPanel = Peek();
             _panelStack.Push(basePanel);
-            basePanel.CallBack(true);
+            basePanel.CallBackWhenHeadPush(oldPanel);
         }
-
-        /// <summary>
-        ///     弹出栈顶元素，没有特殊情况建议不要使用。
-        ///     因为面板基类的ShowMe和HideMe的默认实现已经对栈元素的进出进行了管理，一般直接调用ShowMe和HideMe即可。
-        /// </summary>
-        /// <param name="callback">弹出后，是否执行新的栈顶的渐渐显示</param>
-        /// <example>例如[1,2]当2被弹出后,变成了[1],此时callback参数决定1会不会调用CallBack(true)</example>
-        public IBasePanel PopPanel(bool callback = true)
+        
+        public IBasePanel PopPanel()
         {
             if (_panelStack.Count <= 0)
             {
                 Debug.LogError("栈为空,不能弹出");
                 return null;
             }
-
-            if (Peek() != null) Peek().CallBack(false);
-
-            var res = _panelStack.Pop();
-            if (callback && Peek() != null) Peek().CallBack(true);
-
-            return res;
+            
+            var popPanel = _panelStack.Pop();
+            var peek = Peek();
+            peek?.CallBackWhenHeadPop(popPanel);
+            return popPanel;
         }
 
         /// <summary>

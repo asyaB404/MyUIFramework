@@ -42,12 +42,13 @@ namespace UI
         /// </summary>
         void ChangeMe();
 
-        /// <summary>
-        ///     true表示该面板作为新的元素入栈顶时的标记（可以写渐渐出现的逻辑），false时表示新的元素入栈后原来的栈顶（this）的标记（可以写消失的逻辑）
-        /// </summary>
-        /// <param name="flag">true表示为栈顶，flag表示有新的元素替代了原来的栈顶</param>
-        /// <example>例如栈为[1],新push了一个2变为[1,2],此时1会执行CallBack(false),2会执行CallBack(true)</example>
-        void CallBack(bool flag);
+        void ShowAnim();
+
+        void HideAnim();
+
+        void CallBackWhenHeadPush(IBasePanel oldPanel);
+
+        void CallBackWhenHeadPop(IBasePanel popPanel);
     }
 
     /// <summary>
@@ -145,28 +146,31 @@ namespace UI
             else
                 ShowMe();
         }
-
-        /// <summary>
-        ///     true表示该面板作为新的元素入栈顶时的标记（可以写渐渐出现的逻辑），false时表示新的元素入栈后原来的栈顶（this）的标记（可以写消失的逻辑）
-        /// </summary>
-        /// <param name="flag">true表示为栈顶，flag表示有新的元素替代了原来的栈顶</param>
-        /// <example>例如栈为[1],新push了一个2变为[1,2],此时1会执行CallBack(false),2会执行CallBack(true)</example>
-        public virtual void CallBack(bool flag)
+        
+        public virtual void CallBackWhenHeadPush(IBasePanel oldPanel)
         {
-            //以下是默认实现，觉得不好看的话可以自己改
-            transform.DOKill(true);
-            if (flag)
-            {
-                CanvasGroupInstance.interactable = true;
-                gameObject.SetActive(true);
-                transform.localScale = Vector3.zero;
-                transform.DOScale(1, UIConst.UIDuration);
-            }
-            else
-            {
-                CanvasGroupInstance.interactable = false;
-                transform.DOScale(0, UIConst.UIDuration).OnComplete(() => { gameObject.SetActive(false); });
-            }
+            oldPanel?.HideAnim();
+            ShowAnim();
+        }
+
+        public virtual void CallBackWhenHeadPop(IBasePanel popPanel)
+        {
+            popPanel?.HideAnim();
+            ShowAnim();
+        }
+
+        public virtual void ShowAnim()
+        {
+            CanvasGroupInstance.interactable = true;
+            gameObject.SetActive(true);
+            transform.localScale = Vector3.zero;
+            transform.DOScale(1, UIConst.UIDuration);
+        }
+
+        public virtual void HideAnim()
+        {
+            CanvasGroupInstance.interactable = false;
+            transform.DOScale(0, UIConst.UIDuration).OnComplete(() => { gameObject.SetActive(false); });
         }
 
         /// <summary>
