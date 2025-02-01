@@ -174,7 +174,7 @@ namespace UI
         public virtual void CallBackWhenHeadPop(IBasePanel popPanel)
         {
             popPanel?.HideAnim();
-            if (gameObject.activeSelf == false) ShowAnim();
+            ShowAnim();
         }
 
 
@@ -183,6 +183,7 @@ namespace UI
         /// </summary>
         public virtual void ShowAnim()
         {
+            transform.DOKill(true);
             CanvasGroupInstance.interactable = true;
             gameObject.SetActive(true);
             transform.localScale = Vector3.zero;
@@ -194,6 +195,7 @@ namespace UI
         /// </summary>
         public virtual void HideAnim()
         {
+            transform.DOKill(true);
             CanvasGroupInstance.interactable = false;
             transform.DOScale(0, UIConst.UIDuration).OnComplete(() => { gameObject.SetActive(false); });
         }
